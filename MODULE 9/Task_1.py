@@ -8,3 +8,5 @@ res = apply_all_func([1, 2, 3, 4, 5], min, max, len, sorted, sum)
 print(res)
 print(apply_all_func([6, 20, 15, 9], max, min))
 print(apply_all_func([6, 20, 15, 9], len, sum, sorted))
+
+

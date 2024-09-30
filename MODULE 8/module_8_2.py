@@ -6,17 +6,18 @@ def personal_sum(numbers):
             result += number
         except TypeError:
             incorrect_data += 1
+            print(f'Некорректный тип данных для подсчёта суммы - {number}')
     return result, incorrect_data
 
 def calculate_average(numbers):
-    result = 0
-    incorrect_data = 0
     try:
-        result = personal_sum(numbers)[0] / len(numbers)
+        summa = personal_sum(numbers)[0]
+        div = len([x for x in numbers if type(x) == int])
+        result = summa / div
     except ZeroDivisionError:
         return 0
     except TypeError:
-        print(f'В {numbers} записан некорректный тип данных: {type(numbers).__name__}')
+        print('В numbers записан некорректный тип данных')
         return None
     return result
 

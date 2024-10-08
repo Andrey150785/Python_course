@@ -60,6 +60,16 @@ class Circle(Figure):
 
 class Cube(Figure):
     sides_count = 12
+
+    def __init__(self, color, *args):
+        self.__color = self.set_color(*color)
+        if len(args) == 1:
+            self.__sides = [args[0] for i in range(self.sides_count)]
+        else:
+            self.__sides = []
+            for i in range(self.sides_count):
+                self.__sides.append(1)
+
     def get_volume(self):
         return self.__sides[0] ** 3
 

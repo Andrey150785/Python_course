@@ -16,23 +16,19 @@ class Guest(Th):
     def run(self) -> None:
         delay = rnd(3, 11)
         sleep(delay)
-        print(f'{self.name} вышел(-а) из кафе за {delay} секунд(ы)')
 
 class Cafe:
     def __init__(self, *tables):
         self.tables = tables
         self.queue_ = queue.Queue()
-        self.guests = []
-        # self.guests_at_table = []
+
     def guest_arrival(self, *guests):
-        self.guests = guests
         indicator = 0
-        for guest in self.guests:
+        for guest in guests:
             if indicator < len(self.tables):
                 if not self.tables[indicator].guest:
                     self.tables[indicator].guest = guest
                     guest.start()
-                    # self.guests_at_table.append(guest)
                     print(f"{guest.name} сел(-а) за стол номер {self.tables[indicator].number}")
             else:
                 self.queue_.put(guest)
@@ -42,23 +38,14 @@ class Cafe:
     def discuss_guests(self):
         while not self.queue_.empty():
             for table in self.tables:
-                if table.guest.is_alive():
-                    print(table.guest.name)
-                else:
+                if table.guest is None:
+                    table.guest = self.queue_.get()
+                    table.guest.start()
+                    print(f"{table.guest.name} вышел(-ла) из очереди и сел(-а) за стол номер {table.number}")
+                elif not table.guest.is_alive() and table.guest:
                     print(f"{table.guest.name} покушал(-а) и ушёл(ушла)")
                     print(f"Стол номер {table.number} свободен")
                     table.guest = None
-
-            # guest_waiting = self.queue_.get()
-            # for table in self.tables:
-            #     print(table.guest.name)
-            #     if not table.guest:
-            #
-            #         table.guest = guest_waiting
-            #         guest_waiting.start()
-            #         print(f"{guest_waiting.name} вышел(-ла) из очереди и сел(-а) за стол номер {table.number}")
-
-
 
 # Создание столов
 tables = [Table(number) for number in range(1, 6)]

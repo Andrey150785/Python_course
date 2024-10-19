@@ -1,3 +1,4 @@
+# математика вещественных чисел
 def divide(first, second):
     if second == 0:
         return "Ошибка"

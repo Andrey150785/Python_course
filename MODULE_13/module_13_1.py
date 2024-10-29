@@ -5,7 +5,7 @@ from time import sleep
 async def start_strongman(name, power):
     balls = 1
     print(f'Силач {name} начал соревнования')
-    while balls != 5:
+    while balls < 6:
         await asyncio.sleep(1 / power)
         print(f'Силач {name} поднял {balls}')
         balls += 1

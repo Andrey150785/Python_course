@@ -2,17 +2,17 @@ import asyncio
 from aiogram import Bot, types, Dispatcher, executor
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
-api = '7476203530:AAF5Q7A-NvIFtUd8jftEZGuwoWNXcn_2W3s'
+api = '..............'
 bot = Bot(token= api)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
 @dp.message_handler(commands=['start'])
 async def start(message):
-    print("Привет! Я бот помогающий твоему здоровью.")
+    await message.reply("Привет! Я бот помогающий твоему здоровью.")
 
 @dp.message_handler()
 async def all_message(message):
-    print("Введите команду /start, чтобы начать общение.")
+    await message.reply("Введите команду /start, чтобы начать общение.")
 
 
 if __name__ == '__main__':

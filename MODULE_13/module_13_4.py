@@ -8,7 +8,6 @@ bot = Bot(token= api)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
 class UserState(StatesGroup):
-    name = State()
     age = State()
     growth = State()
     weight = State()
@@ -26,7 +25,7 @@ async def set_age(message):
     await message.reply('Введите свой возраст:')
     await UserState.age.set()
 
-@dp.message_handler(state= UserState.age)
+@dp.message_handler(state=UserState.age)
 async def set_growth(message, state):
     await state.update_data(age=message.text)
     await message.reply('Введите свою рост:')
@@ -42,8 +41,7 @@ async def set_weight(message, state):
 async def send_calories(message, state):
     await state.update_data(weight=message.text)
     data = await state.get_data()
-    await message.reply(f'Ваша суточная норма калорий: {int((10 * data["weight"]) + (6.25 * data["growth"]) - (5 * data["age"]) - 161)}')
-
+    await message.reply(f'Ваша суточная норма калорий: {int((10 * int(data["age"])) + (6.25 * int(data["growth"])) - (5 * int(data["weight"])) +5)}')
     await state.finish()
 
 if __name__ == '__main__':
